@@ -3,19 +3,20 @@ import PropTypes from 'prop-types'
 
 import { Provider } from 'react-redux'
 
-import Policies from './Policies'
+import App from './App'
 
 
 export default function Root(props) {
   const { store } = props
 
   return(
-
       <Provider store={store}>
-          <Policies store={store} />
+        <App store={store} />
       </Provider>
     )
 }
+
+
 
 Root.propTypes = {
   store: PropTypes.object.isRequired
