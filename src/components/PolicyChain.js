@@ -17,14 +17,21 @@ const mapDispatchToProps = dispatch => {
 }
 
 const SortableItem = SortableElement(({value}) =>
-  <li className="list-group-item">{value}</li>
+  <li className="list-group-item">
+    <div className="">
+      <h5 className="">{value.name}</h5>
+      <a href="#"><i className="fas fa-edit"></i></a>
+    </div>
+    <p className="">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+    <small>version shit.</small>
+  </li>
 )
 
 const SortableList = SortableContainer(({items}) => {
   return (
     <ul className="list-group">
-      {items.map((value, index) => (
-        <SortableItem key={`item-${index}`} index={index} value={value} />
+      {items.map((policy, index) => (
+        <SortableItem key={`item-${index}`} index={index} value={policy} />
       ))}
     </ul>
   )

@@ -3,6 +3,7 @@ import { bindActionCreators } from 'redux'
 import * as actions from '../actions/PoliciesActions'
 import Form from "react-jsonschema-form"
 import { connect } from 'react-redux'
+import '../styles/bootstrap/_bootstrap.scss' // react-jsonschema-form
 
 
 const log = (type) => console.log.bind(console, type);

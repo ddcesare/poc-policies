@@ -6,50 +6,9 @@ import { AppContainer } from 'react-hot-loader'
 import Root from './components/Root'
 import configureStore from './store/configureStore'
 
-import './styles/bootstrap.css'
-
-
-const schema = {
-  "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "CORS policy configuration",
-  "type": "object",
-  "properties": {
-    "allow_headers": {
-      "type": "array",
-      "items": {
-        "type": "string"
-      }
-    },
-    "allow_methods": {
-      "type": "array",
-      "items": {
-        "type": "string",
-        "enum": [
-          "GET",
-          "HEAD",
-          "POST",
-          "PUT",
-          "DELETE",
-          "PATCH",
-          "OPTIONS",
-          "TRACE",
-          "CONNECT"
-        ]
-      }
-    },
-    "allow_origin": {
-      "type": "string"
-    },
-    "allow_credentials": {
-      "type": "boolean"
-    }
-  }
-}
-
-const initialState = {
-  chain: [],
-  schema: schema
-}
+import './styles/fontawesome/scss/fa-solid.scss'
+import './styles/fontawesome/scss/fontawesome.scss'
+import './styles/policies.scss'
 
 const store = configureStore();
 

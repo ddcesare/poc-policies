@@ -1,21 +1,5 @@
 import { combineReducers } from 'redux';
-
-const initialState = {
-  chain: ['Item 1', 'Item 2', 'Item 3', 'Item 4', 'Item 5', 'Item 6'],
-  schema: {
-    "$schema": "http://json-schema.org/draft-07/schema#",
-    "title": "CORS policy configuration",
-    "type": "object",
-    "properties": {
-      "allow_headers": {
-        "type": "array",
-        "items": {
-          "type": "string"
-        }
-      }
-    }
-  }
-}
+import { initialState } from './initialState'
 
 function PolicySchemaReducer(state = initialState.schema, action) {
 
