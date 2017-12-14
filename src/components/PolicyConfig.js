@@ -34,10 +34,10 @@ function PoliciesForm({schema}) {
 
 }
 
-const Policies = connect(
+const PolicyConfig = connect(
   mapStateToProps,
   mapDispatchToProps
 )(PoliciesForm)
 
 
-export default Policies
+export default PolicyConfig
