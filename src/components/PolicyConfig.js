@@ -20,7 +20,6 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-
 function PoliciesForm({schema}) {
   return (
     <div className="container-fluid">
@@ -32,7 +31,6 @@ function PoliciesForm({schema}) {
       </div>
     </div>
   )
-
 }
 
 const PolicyConfig = connect(
