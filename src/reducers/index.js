@@ -10,27 +10,18 @@ function PolicySchemaReducer (state = initialState.schema, action) {
   }
 }
 
-function PolicyChainReducer (state = initialState.chain, action) {
+function PolicyReducer (state = initialState, action) {
+  const {recipient, ...rest} = action
+  console.log(action)
   switch (action.type) {
-    case 'LOADING_CHAIN_START': return {...state, ...{loading: true}}
-    case 'LOADING_CHAIN_STOP': return {...state, ...{loading: false}}
-    case 'LOAD_CHAIN_SUCCESS':
-      return {...state, ...{policies: action.policies}}
-    case 'SORT_POLICY_CHAIN': return {...state, ...{policies: action.policies}}
-    default: return state
-  }
-}
-
-function PolicyListReducer (state = initialState.registry, action) {
-  switch (action.type) {
-    case 'LOADING_POLICIES_START': return {...state, ...{loading: true}}
-    case 'LOADING_POLICIES_STOP': return {...state, ...{loading: false}}
+    case 'LOADING_POLICIES_START':
+      return {...state, [recipient]: {...state[recipient], ...{loading: true}}}
+    case 'LOADING_POLICIES_STOP':
+      return {...state, [recipient]: {...state[recipient], ...{loading: false}}}
     case 'LOAD_POLICIES_SUCCESS':
-      console.log('LOAD_POLICIES_SUCCESS')
-      return {...state, ...{policies: action.policies}}
+      return {...state, [recipient]: {...state[recipient], ...{policies: rest.policies}}}
     case 'LOAD_POLICIES_ERROR':
-      console.log('LOAD_POLICIES_ERROR')
-      return {...state, ...action.error}
+      return {...state, [recipient]: {...state[recipient], ...rest.error}}
 
     default: return state
   }
@@ -38,8 +29,7 @@ function PolicyListReducer (state = initialState.registry, action) {
 
 const rootReducer = combineReducers({
   schema: PolicySchemaReducer,
-  chain: PolicyChainReducer,
-  registry: PolicyListReducer
+  policies: PolicyReducer
 })
 
 export default rootReducer

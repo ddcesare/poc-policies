@@ -6,9 +6,8 @@ import {SortableContainer, SortableElement, arrayMove} from 'react-sortable-hoc'
 
 const mapStateToProps = state => {
   return {
-    policies: state.chain.policies,
-    error: state.chain.error,
-    loading: state.chain.loading
+    registry: state.policies.registry,
+    chain: state.policies.chain
   }
 }
 
@@ -45,14 +44,14 @@ const AddPolicyButton = ({showPolicyRegistry}) => {
   )
 }
 
-function PolicyList({policies}) {
+function PolicyList({chain, boundActionCreators}) {
   const onSortEnd = ({oldIndex, newIndex}) => {
-    actions.sortPolicyChain(arrayMove(policies, oldIndex, newIndex))
+    boundActionCreators.sortPolicyChain(arrayMove(chain.policies, oldIndex, newIndex))
   }
     return (
       <div>
-        <AddPolicyButton showPolicyRegistry={actions.showPolicyRegistry} />
-        <SortableList items={policies} onSortEnd={onSortEnd} />
+        <AddPolicyButton showPolicyRegistry={boundActionCreators.showPolicyRegistry} />
+        <SortableList items={chain.policies} onSortEnd={onSortEnd} />
       </div>
 
     )

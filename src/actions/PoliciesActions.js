@@ -5,75 +5,46 @@ export function noOp (value) {
 }
 
 
-// POLICY LIST
+// POLICY REGISTRY AND CHAIN
 
-// get policies
-export function loadPolicies () {
+// get policies (chain or registry)
+export function loadPolicies (recipient) {
   return function (dispatch) {
-    dispatch(loadingPoliciesStart())
-    return PolicyApi.getPolicies().then(policies => {
-      dispatch(loadPoliciesSuccess(policies))
+    dispatch(loadingPoliciesStart(recipient))
+    return PolicyApi.getPolicies(recipient).then(policies => {
+      dispatch(loadPoliciesSuccess(recipient, policies))
     }).catch(error => {
-      dispatch(loadPoliciesError(error))
-    }).then(dispatch(loadingPoliciesStop()))
+      dispatch(loadPoliciesError(recipient, error))
+    }).then(dispatch(loadingPoliciesStop(recipient)))
   }
 }
 
+
+
 // success get policies
-export function loadPoliciesSuccess (policies) {
-  return {type: 'LOAD_POLICIES_SUCCESS', policies}
+export function loadPoliciesSuccess (recipient, policies) {
+  return {type: 'LOAD_POLICIES_SUCCESS', recipient, policies}
 }
 // failure get policies
-export function loadPoliciesError (error) {
-  return {type: 'LOAD_POLICIES_ERROR', error}
+export function loadPoliciesError (recipient, error) {
+  return {type: 'LOAD_POLICIES_ERROR', recipient, error}
 }
 
 // wait for policies start
-export function loadingPoliciesStart () {
-  return {type: 'LOADING_POLICIES_START'}
+export function loadingPoliciesStart (recipient) {
+  return {type: 'LOADING_POLICIES_START', recipient}
 }
 
 // wait for policies stop
-export function loadingPoliciesStop () {
-  return {type: 'LOADING_POLICIES_STOP'}
+export function loadingPoliciesStop (recipient) {
+  return {type: 'LOADING_POLICIES_STOP', recipient}
 }
 
 // search policies (?)
 
 
 
-// CHAIN
-// get chain
-export function loadChain () {
-  return function (dispatch) {
-    dispatch(loadingChainStart())
-    return PolicyApi.getRegistry().then(policies => {
-      dispatch(loadChainSuccess(policies))
-    }).catch(error => {
-      dispatch(loadChainError(error))
-    }).then(dispatch(loadingChainStop()))
-  }
-}
-
-// success get chain
-export function loadChainSuccess (policies) {
-  return {type: 'LOAD_CHAIN_SUCCESS', policies}
-}
-// failure get chain
-export function loadChainError (error) {
-  return {type: 'LOAD_CHAIN_ERROR', error}
-}
-
-// wait for chain start
-export function loadingChainStart () {
-  return {type: 'LOADING_CHAIN_START', loadingChain: true}
-}
-
-// wait for chain stop
-export function loadingChainStop () {
-  return {type: 'LOADING_CHAIN_STOP', loadingChain: false}
-}
-
+// CHAIN especifics (?)
 
 // add policy to chain
 export function addPolicyToChain () {

@@ -61,10 +61,11 @@ const generateId = (chain) => {
   return chain.length +1
 }
 
-export function getPolicies () {
+export function getPolicies (recipient) {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
-      resolve(Object.assign([], registry))
+      const result = (recipient === 'chain') ? chain : registry
+      resolve(Object.assign([], result))
     }, delay)
   })
 }
