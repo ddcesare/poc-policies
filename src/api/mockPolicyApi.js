@@ -1,21 +1,21 @@
-const delay = 2000
+const delay = 1000
 
 
 const chain = [
-    {id: 1, policyId: 1, enabled: true, name: 'Policy 1'},
-    {id: 2, policyId: 1, enabled: true, name: 'Policy 1'},
-    {id: 3, policyId: 2, enabled: true, name: 'Policy 2'},
-    {id: 4, policyId: 3, enabled: true, name: 'Policy 3'},
-    {id: 5, policyId: 4, enabled: true, name: 'Policy 4'},
-    {id: 6, policyId: 5, enabled: true, name: 'Policy 5'}
+    {id: 1, policyId: 1, enabled: true, name: 'Policy 1', version: '1.0.0'},
+    {id: 2, policyId: 1, enabled: true, name: 'Policy 1', version: '1.0.0'},
+    {id: 3, policyId: 2, enabled: true, name: 'Policy 2', version: '1.0.0'},
+    {id: 4, policyId: 3, enabled: true, name: 'Policy 3', version: '1.0.0'},
+    {id: 5, policyId: 4, enabled: true, name: 'Policy 4', version: '1.0.0'},
+    {id: 6, policyId: 5, enabled: true, name: 'Policy 5', version: '1.0.0'}
 ]
 
-const policyList = [
-  {id: 1, name: 'Policy 1'},
-  {id: 2, name: 'Policy 2'},
-  {id: 3, name: 'Policy 3'},
-  {id: 4, name: 'Policy 4'},
-  {id: 5, name: 'Policy 5'}
+const registry = [
+  {id: 1, name: 'Policy 1', version: '1.0.0'},
+  {id: 2, name: 'Policy 2', version: '1.0.0'},
+  {id: 3, name: 'Policy 3', version: '1.0.0'},
+  {id: 4, name: 'Policy 4', version: '1.0.0'},
+  {id: 5, name: 'Policy 5', version: '1.0.0'}
 ]
 
 const schema1 = {
@@ -61,15 +61,15 @@ const generateId = (chain) => {
   return chain.length +1
 }
 
-function getPolicies () {
+export function getPolicies () {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
-      resolve(Object.assign([], policyList))
+      resolve(Object.assign([], registry))
     }, delay)
   })
 }
 
-function getChain () {
+export function getRegistry () {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       resolve(Object.assign([], chain))
@@ -77,7 +77,7 @@ function getChain () {
   })
 }
 
-function getSchema (policyId) {
+export function getSchema (policyId) {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       resolve(schemas.get(policyId))

@@ -1,12 +1,14 @@
 export const initialState = {
-  chain: [
-    {id: 1, name: 'Policy 1'},
-    {id: 2, name: 'Policy 1'},
-    {id: 3, name: 'Policy 2'},
-    {id: 4, name: 'Policy 3'},
-    {id: 5, name: 'Policy 4'},
-    {id: 6, name: 'Policy 5'}
-  ],
+  registry: {
+    loading: false,
+    policies: [],
+    error: {}
+  },
+  chain: {
+    loading: false,
+    policies: [],
+    error: {}
+  },
   schema: {
     "$schema": "http://json-schema.org/draft-07/schema#",
     "title": "CORS policy configuration",

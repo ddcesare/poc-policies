@@ -5,6 +5,7 @@ import { render } from 'react-dom'
 import { AppContainer } from 'react-hot-loader'
 import Root from './components/Root'
 import configureStore from './store/configureStore'
+import * as actions from './actions/PoliciesActions'
 
 import './styles/fontawesome/scss/fa-solid.scss'
 import './styles/fontawesome/scss/fontawesome.scss'
@@ -12,6 +13,8 @@ import './styles/policies.scss'
 
 const store = configureStore();
 
+//store.dispatch(actions.loadPolicies())
+store.dispatch(actions.loadChain())
 
 render(
   <AppContainer>
