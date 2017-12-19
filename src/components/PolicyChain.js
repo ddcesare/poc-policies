@@ -2,7 +2,12 @@ import React from 'react'
 import { bindActionCreators } from 'redux'
 import * as actions from '../actions/PoliciesActions'
 import { connect } from 'react-redux'
-import {SortableContainer, SortableElement, arrayMove} from 'react-sortable-hoc'
+import {
+  SortableContainer,
+  SortableElement,
+  SortableHandle,
+  arrayMove
+} from 'react-sortable-hoc'
 
 const mapStateToProps = state => {
   return {
@@ -17,11 +22,14 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
+const DragHandle = SortableHandle(() => <span><i className="fas fa-bars"></i></span>);
+
 const SortableItem = SortableElement(({value, removePolicyFromChain}) => {
   const remove = () => removePolicyFromChain(value)
   return (
     <li className="list-group-item">
       <div className="">
+        <DragHandle/>
         <h5 className="">{value.name}</h5>
         <button><i className="fas fa-edit"></i></button>
         <button onClick={remove}><i className="fas fa-times"></i></button>
@@ -35,7 +43,12 @@ const SortableList = SortableContainer(({items, removePolicyFromChain}) => {
   return (
     <ul className="list-group">
       {items.map((policy, index) => (
-        <SortableItem key={`item-${index}`} index={index} value={policy} removePolicyFromChain={removePolicyFromChain} />
+        <SortableItem
+          key={`item-${index}`}
+          index={index}
+          value={policy}
+          removePolicyFromChain={removePolicyFromChain}
+        />
       ))}
     </ul>
   )
@@ -92,6 +105,7 @@ const PolicyList = ({registry, chain, boundActionCreators}) => {
         <SortableList
           items={chain.policies}
           onSortEnd={onSortEnd}
+          useDragHandle={true}
           removePolicyFromChain={boundActionCreators.removePolicyFromChain}
         />
         <PolicyRegistryList
