@@ -17,21 +17,25 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-const SortableItem = SortableElement(({value}) =>
-  <li className="list-group-item">
-    <div className="">
-      <h5 className="">{value.name}</h5>
-      <a href="#"><i className="fas fa-edit"></i></a>
-    </div>
-    <small>version shit.</small>
-  </li>
-)
+const SortableItem = SortableElement(({value, removePolicyFromChain}) => {
+  const remove = () => removePolicyFromChain(value)
+  return (
+    <li className="list-group-item">
+      <div className="">
+        <h5 className="">{value.name}</h5>
+        <button><i className="fas fa-edit"></i></button>
+        <button onClick={remove}><i className="fas fa-times"></i></button>
+      </div>
+      <small>version shit.</small>
+    </li>
+  )
+})
 
-const SortableList = SortableContainer(({items}) => {
+const SortableList = SortableContainer(({items, removePolicyFromChain}) => {
   return (
     <ul className="list-group">
       {items.map((policy, index) => (
-        <SortableItem key={`item-${index}`} index={index} value={policy} />
+        <SortableItem key={`item-${index}`} index={index} value={policy} removePolicyFromChain={removePolicyFromChain} />
       ))}
     </ul>
   )
@@ -56,7 +60,7 @@ const PolicyRegistryItem = ({value, addPolicyToChain}) => {
     <li className="list-group-item">
       <div className="">
         <h5 className="">{value.name}</h5>
-        <a href="#" onClick={addToChain}><i className="fas fa-plus-square"></i></a>
+        <button onClick={addToChain}><i className="fas fa-plus-square"></i></button>
       </div>
       <p className="">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
       <small>version shit.</small>
@@ -85,7 +89,11 @@ const PolicyList = ({registry, chain, boundActionCreators}) => {
     return (
       <div>
         <AddPolicyButton showPolicyRegistry={boundActionCreators.showPolicyRegistry} />
-        <SortableList items={chain.policies} onSortEnd={onSortEnd} />
+        <SortableList
+          items={chain.policies}
+          onSortEnd={onSortEnd}
+          removePolicyFromChain={boundActionCreators.removePolicyFromChain}
+        />
         <PolicyRegistryList
           items={registry.policies}
           visible={registry.visible}

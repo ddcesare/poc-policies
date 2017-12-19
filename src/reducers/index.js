@@ -31,6 +31,10 @@ function PolicyReducer (state = initialState, action) {
       return updatePolicyState('registry', state, {visible: false})
     case 'ADD_POLICY_TO_CHAIN':
       return updatePolicyState('chain', state, {policies: state.chain.policies.concat([rest.policy])})
+    case 'REMOVE_POLICY_FROM_CHAIN':
+      return updatePolicyState('chain', state, {policies: state.chain.policies.filter( policy => policy !== rest.policy)})
+    case 'SORT_POLICY_CHAIN':
+      return updatePolicyState('chain', state, {policies: action.policies})
     default: return state
   }
 }

@@ -62,7 +62,13 @@ export function hidePolicyRegistry () {
 }
 
 // remove policy from chain
+export function removePolicyFromChain (policy) {
+  return {type: 'REMOVE_POLICY_FROM_CHAIN', policy}
+}
 // toggle policy (enable/disable)
+export function togglePolicyState (policy) {
+  return {type: 'TOGGLE_POLICY_STATE', policy}
+}
 
 //sort chain
 export function sortPolicyChain (policies) {
