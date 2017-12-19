@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 import { initialState } from './initialState'
 
-function PolicySchemaReducer (state = initialState.schema, action) {
+function PolicyConfigReducer (state = initialState.config, action) {
 
   switch (action.type) {
     case 'NO_OP': return state
@@ -10,25 +10,33 @@ function PolicySchemaReducer (state = initialState.schema, action) {
   }
 }
 
+function updatePolicyState (recipient, state, newState) {
+  return {...state, [recipient]: {...state[recipient], ...newState}}
+}
+
 function PolicyReducer (state = initialState, action) {
   const {recipient, ...rest} = action
-  console.log(action)
   switch (action.type) {
     case 'LOADING_POLICIES_START':
-      return {...state, [recipient]: {...state[recipient], ...{loading: true}}}
+      return updatePolicyState(recipient, state, {loading: true})
     case 'LOADING_POLICIES_STOP':
-      return {...state, [recipient]: {...state[recipient], ...{loading: false}}}
+      return updatePolicyState(recipient, state, {loading: false})
     case 'LOAD_POLICIES_SUCCESS':
-      return {...state, [recipient]: {...state[recipient], ...{policies: rest.policies}}}
+      return updatePolicyState(recipient, state, {policies: rest.policies})
     case 'LOAD_POLICIES_ERROR':
-      return {...state, [recipient]: {...state[recipient], ...rest.error}}
-
+      return updatePolicyState(recipient, state, rest.error)
+    case 'SHOW_POLICY_REGISTRY':
+      return updatePolicyState('registry', state, {visible: true})
+    case 'HIDE_POLICY_REGISTRY':
+      return updatePolicyState('registry', state, {visible: false})
+    case 'ADD_POLICY_TO_CHAIN':
+      return updatePolicyState('chain', state, {policies: state.chain.policies.concat([rest.policy])})
     default: return state
   }
 }
 
 const rootReducer = combineReducers({
-  schema: PolicySchemaReducer,
+  config: PolicyConfigReducer,
   policies: PolicyReducer
 })
 

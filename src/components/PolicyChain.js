@@ -23,7 +23,6 @@ const SortableItem = SortableElement(({value}) =>
       <h5 className="">{value.name}</h5>
       <a href="#"><i className="fas fa-edit"></i></a>
     </div>
-    <p className="">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
     <small>version shit.</small>
   </li>
 )
@@ -44,7 +43,42 @@ const AddPolicyButton = ({showPolicyRegistry}) => {
   )
 }
 
-function PolicyList({chain, boundActionCreators}) {
+const CloseRegistryButton = ({hidePolicyRegistry}) => {
+  return (
+    <button onClick={hidePolicyRegistry}><i className="fas fa-times-circle"> Close</i></button>
+  )
+}
+
+
+const PolicyRegistryItem = ({value, addPolicyToChain}) => {
+  const addToChain = () => addPolicyToChain(value)
+  return (
+    <li className="list-group-item">
+      <div className="">
+        <h5 className="">{value.name}</h5>
+        <a href="#" onClick={addToChain}><i className="fas fa-plus-square"></i></a>
+      </div>
+      <p className="">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+      <small>version shit.</small>
+    </li>
+  )
+}
+
+
+const PolicyRegistryList = ({items, visible, addPolicyToChain, hidePolicyRegistry}) => {
+  return (
+    <div className={(visible ? '' : 'hidden')}>
+      <CloseRegistryButton hidePolicyRegistry={hidePolicyRegistry} />
+      <ul>
+        {items.map((policy, index) => (
+          <PolicyRegistryItem key={`item-${index}`} index={index} value={policy} addPolicyToChain={addPolicyToChain} />
+        ))}
+      </ul>
+    </div>
+  )
+}
+
+const PolicyList = ({registry, chain, boundActionCreators}) => {
   const onSortEnd = ({oldIndex, newIndex}) => {
     boundActionCreators.sortPolicyChain(arrayMove(chain.policies, oldIndex, newIndex))
   }
@@ -52,6 +86,12 @@ function PolicyList({chain, boundActionCreators}) {
       <div>
         <AddPolicyButton showPolicyRegistry={boundActionCreators.showPolicyRegistry} />
         <SortableList items={chain.policies} onSortEnd={onSortEnd} />
+        <PolicyRegistryList
+          items={registry.policies}
+          visible={registry.visible}
+          addPolicyToChain={boundActionCreators.addPolicyToChain}
+          hidePolicyRegistry={boundActionCreators.hidePolicyRegistry}
+        />
       </div>
 
     )

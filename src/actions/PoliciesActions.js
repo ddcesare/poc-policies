@@ -47,13 +47,18 @@ export function loadingPoliciesStop (recipient) {
 // CHAIN especifics (?)
 
 // add policy to chain
-export function addPolicyToChain () {
-  return {type: 'ADD_POLICY_TO_CHAIN'}
+export function addPolicyToChain (policy) {
+  return {type: 'ADD_POLICY_TO_CHAIN', policy}
 }
 
 // show policies
 export function showPolicyRegistry () {
   return {type: 'SHOW_POLICY_REGISTRY'}
+}
+
+// hide policy registry
+export function hidePolicyRegistry () {
+  return {type: 'HIDE_POLICY_REGISTRY'}
 }
 
 // remove policy from chain

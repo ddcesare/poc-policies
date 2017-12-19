@@ -18,42 +18,54 @@ const registry = [
   {id: 5, name: 'Policy 5', version: '1.0.0'}
 ]
 
-const schema1 = {
-  "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "CORS policy configuration",
-  "type": "object",
-  "properties": {
-    "allow_headers": {
-      "type": "array",
-      "items": {
-        "type": "string"
+const config1 = {
+
+  schema: {
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "CORS policy configuration",
+    "type": "object",
+    "properties": {
+      "allow_headers": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
       }
-    }
+    },
+    name: 'CORS',
+    description: 'asd'
   }
+
 }
 
-const schema2 = {
-  "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "CORS policy configuration",
-  "type": "object",
-  "properties": {
-    "allow_headers": {
-      "type": "array",
-      "items": {
-        "type": "string"
+const config2 = {
+
+  schema: {
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "CORS policy configuration",
+    "type": "object",
+    "properties": {
+      "allow_headers": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
       }
-    }
+    },
+    name: 'CORS2',
+    description: 'asd2'
   }
+
 }
 
 
 const schemas = new Map ()
 
-schemas.set(1, schema1)
-schemas.set(2, schema2)
-schemas.set(3, schema1)
-schemas.set(4, schema2)
-schemas.set(5, schema1)
+schemas.set(1, config1)
+schemas.set(2, config2)
+schemas.set(3, config1)
+schemas.set(4, config2)
+schemas.set(5, config1)
 
 
 //This would be performed on the server in a real app. Just stubbing in.
@@ -70,15 +82,7 @@ export function getPolicies (recipient) {
   })
 }
 
-export function getRegistry () {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      resolve(Object.assign([], chain))
-    }, delay)
-  })
-}
-
-export function getSchema (policyId) {
+export function getConfig (policyId) {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       resolve(schemas.get(policyId))

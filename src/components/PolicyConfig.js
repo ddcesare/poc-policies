@@ -10,7 +10,7 @@ const log = (type) => console.log.bind(console, type);
 
 const mapStateToProps = state => {
   return {
-    schema: state.schema
+    config: state.config
   }
 }
 
@@ -20,11 +20,11 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-function PoliciesForm({schema}) {
+function PoliciesForm({config}) {
   return (
     <div className="container-fluid">
       <div className="col-sm-5">
-        <Form schema={schema}
+        <Form schema={config.schema}
               onChange={log("changed")}
               onSubmit={log("submitted")}
               onError={log("errors")}/>
