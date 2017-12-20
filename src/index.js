@@ -13,8 +13,8 @@ import './styles/policies.scss'
 
 const store = configureStore();
 
-store.dispatch(actions.loadPolicies('registry'))
-store.dispatch(actions.loadPolicies('chain'))
+store.dispatch(actions.getRegistry())
+store.dispatch(actions.getChain())
 
 render(
   <AppContainer>

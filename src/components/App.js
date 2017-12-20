@@ -1,7 +1,6 @@
 /* eslint-disable import/no-named-as-default */
 import React from 'react';
 import PropTypes from 'prop-types';
-import PolicyConfig from './PolicyConfig'
 import PolicyChain from './PolicyChain'
 
 
@@ -16,7 +15,6 @@ class App extends React.Component {
 
     return (
       <div>
-        <PolicyConfig store={store} />
         <PolicyChain store={store} />
       </div>
     )

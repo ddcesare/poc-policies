@@ -1,17 +1,12 @@
 import * as PolicyApi from '../api/mockPolicyApi'
 
-export function noOp (value) {
-  return { type: 'NO_OP', value: value }
-}
-
-
 // POLICY REGISTRY AND CHAIN
 
 // get policies (chain or registry)
-export function loadPolicies (recipient) {
+function loadPolicies (recipient, fn) {
   return function (dispatch) {
     dispatch(loadingPoliciesStart(recipient))
-    return PolicyApi.getPolicies(recipient).then(policies => {
+    return fn(recipient).then(policies => {
       dispatch(loadPoliciesSuccess(recipient, policies))
     }).catch(error => {
       dispatch(loadPoliciesError(recipient, error))
@@ -19,32 +14,38 @@ export function loadPolicies (recipient) {
   }
 }
 
+export function getChain () {
+  return loadPolicies('chain', PolicyApi.getChain)
+}
 
+export function getRegistry () {
+  return loadPolicies('registry', PolicyApi.getRegistry)
+}
 
 // success get policies
 export function loadPoliciesSuccess (recipient, policies) {
-  return {type: 'LOAD_POLICIES_SUCCESS', recipient, policies}
+  return {type: 'LOAD_POLICIES_SUCCESS_'+recipient.toUpperCase(), policies}
 }
 // failure get policies
 export function loadPoliciesError (recipient, error) {
-  return {type: 'LOAD_POLICIES_ERROR', recipient, error}
+  return {type: 'LOAD_POLICIES_ERROR_'+recipient.toUpperCase(), error}
 }
 
 // wait for policies start
 export function loadingPoliciesStart (recipient) {
-  return {type: 'LOADING_POLICIES_START', recipient}
+  return {type: 'LOADING_POLICIES_START_'+recipient.toUpperCase()}
 }
 
 // wait for policies stop
 export function loadingPoliciesStop (recipient) {
-  return {type: 'LOADING_POLICIES_STOP', recipient}
+  return {type: 'LOADING_POLICIES_STOP_'+recipient.toUpperCase()}
 }
 
 // search policies (?)
 
 
 
-// CHAIN especifics (?)
+// CHAIN specifics (?)
 
 // add policy to chain
 export function addPolicyToChain (policy) {
@@ -76,14 +77,50 @@ export function sortPolicyChain (policies) {
 }
 
 // save chain
+export function savePolicyChain (policies) {
+  return { type: 'SAVE_POLICY_CHAIN', policies}
+}
+
+
+// EDIT CONFIG
+export function editPolicyConfig (policy) {
+  return function(dispatch) {
+    dispatch(setPolicyConfig(policy))
+    dispatch(showPolicyConfig())
+  }
+
+}
+
+// show policy config
+export function showPolicyConfig () {
+  return {type: 'SHOW_POLICY_CONFIG'}
+}
+
+// hide policy config
+export function hidePolicyConfig () {
+  return {type: 'HIDE_POLICY_CONFIG'}
+}
+
+// load policy config
+export function setPolicyConfig (policy) {
+  return {type: 'SET_POLICY_CONFIG', policy}
+}
+
+// save policy config
+export function savePolicyConfig (policy) {
+  return {type: 'SAVE_POLICY_CONFIG', policy}
+}
+
+// submit policy config
+export function submitPolicyConfig (policy) {
+  return function (dispatch) {
+    dispatch(savePolicyConfig(policy))
+    dispatch(addPolicyToChain(policy))
+    dispatch(hidePolicyConfig())
+  }
+}
+
 // wait for response
 // success save chain
 // failure save chain
 
-
-// CONFIG
-
-// get config
-// wait for config
-// success get config
-// failure get config

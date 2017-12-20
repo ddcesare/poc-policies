@@ -1,6 +1,7 @@
 import React from 'react'
 import { bindActionCreators } from 'redux'
 import * as actions from '../actions/PoliciesActions'
+import PolicyConfig from './PolicyConfig'
 import { connect } from 'react-redux'
 import {
   SortableContainer,
@@ -11,8 +12,9 @@ import {
 
 const mapStateToProps = state => {
   return {
-    registry: state.policies.registry,
-    chain: state.policies.chain
+    registry: state.registry,
+    chain: state.chain,
+    policyConfig: state.policyConfig
   }
 }
 
@@ -24,14 +26,15 @@ const mapDispatchToProps = dispatch => {
 
 const DragHandle = SortableHandle(() => <span><i className="fas fa-bars"></i></span>);
 
-const SortableItem = SortableElement(({value, removePolicyFromChain}) => {
+const SortableItem = SortableElement(({value, removePolicyFromChain, editPolicyConfig}) => {
   const remove = () => removePolicyFromChain(value)
+  const edit = () => editPolicyConfig(value)
   return (
     <li className="list-group-item">
       <div className="">
         <DragHandle/>
         <h5 className="">{value.name}</h5>
-        <button><i className="fas fa-edit"></i></button>
+        <EditPolicyButton editPolicyConfig={edit} />
         <button onClick={remove}><i className="fas fa-times"></i></button>
       </div>
       <small>version shit.</small>
@@ -39,7 +42,7 @@ const SortableItem = SortableElement(({value, removePolicyFromChain}) => {
   )
 })
 
-const SortableList = SortableContainer(({items, removePolicyFromChain}) => {
+const SortableList = SortableContainer(({items, removePolicyFromChain, editPolicyConfig}) => {
   return (
     <ul className="list-group">
       {items.map((policy, index) => (
@@ -48,11 +51,18 @@ const SortableList = SortableContainer(({items, removePolicyFromChain}) => {
           index={index}
           value={policy}
           removePolicyFromChain={removePolicyFromChain}
+          editPolicyConfig={editPolicyConfig}
         />
       ))}
     </ul>
   )
 })
+
+const EditPolicyButton = ({editPolicyConfig}) => {
+  return (
+    <button onClick={editPolicyConfig}><i className="fas fa-edit"></i></button>
+  )
+}
 
 const AddPolicyButton = ({showPolicyRegistry}) => {
   return (
@@ -95,18 +105,20 @@ const PolicyRegistryList = ({items, visible, addPolicyToChain, hidePolicyRegistr
   )
 }
 
-const PolicyList = ({registry, chain, boundActionCreators}) => {
+const PolicyList = ({registry, chain, policyConfig, boundActionCreators}) => {
   const onSortEnd = ({oldIndex, newIndex}) => {
     boundActionCreators.sortPolicyChain(arrayMove(chain.policies, oldIndex, newIndex))
   }
     return (
       <div>
+        <PolicyConfig visible={policyConfig.visible} policy={policyConfig.policy} actions={boundActionCreators} />
         <AddPolicyButton showPolicyRegistry={boundActionCreators.showPolicyRegistry} />
         <SortableList
           items={chain.policies}
           onSortEnd={onSortEnd}
           useDragHandle={true}
           removePolicyFromChain={boundActionCreators.removePolicyFromChain}
+          editPolicyConfig={boundActionCreators.editPolicyConfig}
         />
         <PolicyRegistryList
           items={registry.policies}
