@@ -43,7 +43,6 @@ const SortableItem = SortableElement(({value, removePolicyFromChain, editPolicyC
 })
 
 const SortableList = SortableContainer(({items, visible, removePolicyFromChain, editPolicyConfig}) => {
-
   return (
     <ul className={(visible ? 'list-group' : 'hidden list-group')}>
       {items.map((policy, index) => (

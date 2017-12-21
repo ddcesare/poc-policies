@@ -35,12 +35,28 @@ function updateError (state, action) {
   return updateObject(state, {error: action.error})
 }
 
+function generateGuid () {
+  function s4() {
+    return Math.floor((1 + Math.random()) * 0x10000)
+      .toString(16)
+      .substring(1);
+  }
+  return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+    s4() + '-' + s4() + s4() + s4();
+}
+
+function createChainPolicy (policy) {
+  const policyId = policy.id
+  const guid = generateGuid()
+  return {...policy, ...{id: guid, policyId}}
+}
+
 function addPolicyToChain (state, action) {
-  return {policies: state.policies.concat([action.policy])}
+  return updateObject(state, {policies: state.policies.concat([createChainPolicy(action.policy)])})
 }
 
 function removePolicyFromChain (state, action) {
-  return {policies: state.policies.filter( policy => policy !== action.policy)}
+  return updateObject(state, {policies: state.policies.filter( policy => policy !== action.policy)})
 }
 
 function updatePolicyInChain (state, action) {
