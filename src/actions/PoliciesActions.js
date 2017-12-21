@@ -2,6 +2,9 @@ import * as PolicyApi from '../api/mockPolicyApi'
 
 // POLICY REGISTRY AND CHAIN
 
+const chainRecipient = 'CHAIN'
+const registryRecipient = 'REGISTRY'
+
 // get policies (chain or registry)
 function loadPolicies (recipient, fn) {
   return function (dispatch) {
@@ -15,30 +18,30 @@ function loadPolicies (recipient, fn) {
 }
 
 export function getChain () {
-  return loadPolicies('chain', PolicyApi.getChain)
+  return loadPolicies(chainRecipient, PolicyApi.getChain)
 }
 
 export function getRegistry () {
-  return loadPolicies('registry', PolicyApi.getRegistry)
+  return loadPolicies(registryRecipient, PolicyApi.getRegistry)
 }
 
 // success get policies
 export function loadPoliciesSuccess (recipient, policies) {
-  return {type: 'LOAD_POLICIES_SUCCESS_'+recipient.toUpperCase(), policies}
+  return {type: 'LOAD_POLICIES_SUCCESS_'+recipient, policies}
 }
 // failure get policies
 export function loadPoliciesError (recipient, error) {
-  return {type: 'LOAD_POLICIES_ERROR_'+recipient.toUpperCase(), error}
+  return {type: 'LOAD_POLICIES_ERROR_'+recipient, error}
 }
 
 // wait for policies start
 export function loadingPoliciesStart (recipient) {
-  return {type: 'LOADING_POLICIES_START_'+recipient.toUpperCase()}
+  return {type: 'LOADING_POLICIES_START_'+recipient}
 }
 
 // wait for policies stop
 export function loadingPoliciesStop (recipient) {
-  return {type: 'LOADING_POLICIES_STOP_'+recipient.toUpperCase()}
+  return {type: 'LOADING_POLICIES_STOP_'+recipient}
 }
 
 // search policies (?)
@@ -81,6 +84,11 @@ export function savePolicyChain (policies) {
   return { type: 'SAVE_POLICY_CHAIN', policies}
 }
 
+// update policy in chain
+export function updatePolicyInChain (policy) {
+  return {type: 'UPDATE_POLICY_IN_CHAIN', policy}
+}
+
 
 // EDIT CONFIG
 export function editPolicyConfig (policy) {
@@ -115,7 +123,7 @@ export function savePolicyConfig (policy) {
 export function submitPolicyConfig (policy) {
   return function (dispatch) {
     dispatch(savePolicyConfig(policy))
-    dispatch(addPolicyToChain(policy))
+    dispatch(updatePolicyInChain(policy))
     dispatch(hidePolicyConfig())
   }
 }

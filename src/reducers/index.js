@@ -43,12 +43,19 @@ function removePolicyFromChain (state, action) {
   return {policies: state.policies.filter( policy => policy !== action.policy)}
 }
 
+function updatePolicyInChain (state, action) {
+  const updatedPolicy = action.policy
+  const updatedPolicies = state.policies.map(policy => (policy.id === updatedPolicy.id) ? updatedPolicy : policy )
+  return updateObject(state, {policies: updatedPolicies})
+}
+
 function setPolicyConfig (state, action) {
   return updateObject(state, {policy: action.policy})
 }
 
 function savePolicyConfig (state, action) {
-  return updateObject(state, action.policy)
+  const updatedPolicy = updateObject(state.policy, action.policy)
+  return updateObject(state, {policy: updatedPolicy})
 }
 
 const ChainReducer = createReducer(initialState.chain, {
@@ -58,7 +65,8 @@ const ChainReducer = createReducer(initialState.chain, {
   'LOADING_POLICIES_START_CHAIN' : toggleLoading(true),
   'LOADING_POLICIES_STOP_CHAIN' : toggleLoading(false),
   'LOAD_POLICIES_SUCCESS_CHAIN' : updatePolicies,
-  'LOAD_POLICIES_ERROR_CHAIN' : updateError
+  'LOAD_POLICIES_ERROR_CHAIN' : updateError,
+  'UPDATE_POLICY_IN_CHAIN' : updatePolicyInChain
 })
 
 const RegistryReducer = createReducer(initialState.registry, {
