@@ -1,6 +1,6 @@
 const delay = 1000
 
-const schema1 = {
+const schemaCors = {
   "title": "CORS policy configuration",
   "type": "object",
   "properties": {
@@ -13,35 +13,59 @@ const schema1 = {
   }
 }
 
-const schema2 = {
-  "title": "CORS policy configuration",
+const schemaEcho = {
+  "title": "Echo policy configuration",
   "type": "object",
   "properties": {
-    "allow_headers": {
+    "status": {
+      "type": "integer"
+    },
+    "exit": {
+      "type": "string",
+      "enum": ["request", "phase"]
+    }
+  }
+}
+
+const schemaHeaders = {
+  "title": "Headers policy configuration",
+  "type": "object",
+  "definitions": {
+    "commands": {
       "type": "array",
       "items": {
-        "type": "string"
+        "type": "object",
+        "properties": {
+          "op": {
+            "type": "string",
+            "enum": ["add", "set", "push"]
+          },
+          "header": {
+            "type": "string"
+          },
+          "value": {
+            "type": "string"
+          }
+        },
+        "required": ["op", "header", "value"]
       }
     }
+  },
+  "properties": {
+    "request": { "$ref": "#/definitions/commands" },
+    "response": { "$ref": "#/definitions/commands" }
   }
 }
 
 
 const chain = [
-    {id: 1, policyId: 1, enabled: true, name: 'Policy 1', version: '1.0.0', schema: schema1, data: {}},
-    {id: 2, policyId: 1, enabled: true, name: 'Policy 1', version: '1.0.0', schema: schema2, data: {}},
-    {id: 3, policyId: 2, enabled: true, name: 'Policy 2', version: '1.0.0', schema: schema1, data: {}},
-    {id: 4, policyId: 3, enabled: true, name: 'Policy 3', version: '1.0.0', schema: schema2, data: {}},
-    {id: 5, policyId: 4, enabled: true, name: 'Policy 4', version: '1.0.0', schema: schema1, data: {}},
-    {id: 6, policyId: 5, enabled: true, name: 'Policy 5', version: '1.0.0', schema: schema2, data: {}}
+    {id: 1, policyId: 1, enabled: true, name: 'CORS', version: '1.0.0', schema: schemaCors, data: {}}
 ]
 
 const registry = [
-  {id: 1, name: 'Policy 1', version: '1.0.0', schema: schema1},
-  {id: 2, name: 'Policy 2', version: '1.0.0', schema: schema2},
-  {id: 3, name: 'Policy 3', version: '1.0.0', schema: schema1},
-  {id: 4, name: 'Policy 4', version: '1.0.0', schema: schema2},
-  {id: 5, name: 'Policy 5', version: '1.0.0', schema: schema1}
+  {id: 1, name: 'CORS policy configuration', version: '1.0.0', schema: schemaCors},
+  {id: 2, name: 'Echo policy configuration', version: '1.0.0', schema: schemaEcho},
+  {id: 3, name: 'Headers policy configuration', version: '1.0.0', schema: schemaHeaders}
 ]
 
 
