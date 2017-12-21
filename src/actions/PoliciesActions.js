@@ -44,11 +44,27 @@ export function loadingPoliciesStop (recipient) {
   return {type: 'LOADING_POLICIES_STOP_'+recipient}
 }
 
+export function hidePolicyChain () {
+  return {type: 'HIDE_POLICY_CHAIN'}
+}
+
+export function showPolicyChain () {
+  return {type: 'SHOW_POLICY_CHAIN'}
+}
+
 // search policies (?)
 
 
 
 // CHAIN specifics (?)
+
+export function addPolicy (policy) {
+  return function (dispatch) {
+    dispatch(hidePolicyRegistry())
+    dispatch(addPolicyToChain(policy))
+    dispatch(showPolicyChain())
+  }
+}
 
 // add policy to chain
 export function addPolicyToChain (policy) {
@@ -58,6 +74,14 @@ export function addPolicyToChain (policy) {
 // show policies
 export function showPolicyRegistry () {
   return {type: 'SHOW_POLICY_REGISTRY'}
+}
+
+// open policy registry
+export function openPolicyRegistry () {
+  return function (dispatch) {
+    dispatch(showPolicyRegistry())
+    dispatch(hidePolicyChain())
+  }
 }
 
 // hide policy registry

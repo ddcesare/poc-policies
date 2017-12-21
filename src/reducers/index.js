@@ -59,6 +59,8 @@ function savePolicyConfig (state, action) {
 }
 
 const ChainReducer = createReducer(initialState.chain, {
+  'SHOW_POLICY_CHAIN' : toggleVisibility(true),
+  'HIDE_POLICY_CHAIN' : toggleVisibility(false),
   'ADD_POLICY_TO_CHAIN' : addPolicyToChain,
   'REMOVE_POLICY_FROM_CHAIN' : removePolicyFromChain,
   'SORT_POLICY_CHAIN' : updatePolicies,

@@ -6,6 +6,7 @@ export const initialState = {
     visible: false
   },
   chain: {
+    visible: true,
     loading: false,
     policies: [],
     error: {},

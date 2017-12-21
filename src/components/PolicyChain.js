@@ -42,9 +42,10 @@ const SortableItem = SortableElement(({value, removePolicyFromChain, editPolicyC
   )
 })
 
-const SortableList = SortableContainer(({items, removePolicyFromChain, editPolicyConfig}) => {
+const SortableList = SortableContainer(({items, visible, removePolicyFromChain, editPolicyConfig}) => {
+
   return (
-    <ul className="list-group">
+    <ul className={(visible ? 'list-group' : 'hidden list-group')}>
       {items.map((policy, index) => (
         <SortableItem
           key={`item-${index}`}
@@ -64,9 +65,9 @@ const EditPolicyButton = ({editPolicyConfig}) => {
   )
 }
 
-const AddPolicyButton = ({showPolicyRegistry}) => {
+const AddPolicyButton = ({openPolicyRegistry}) => {
   return (
-    <button onClick={showPolicyRegistry}><i className="fas fa-plus-square"> Add Policy</i></button>
+    <button onClick={openPolicyRegistry}><i className="fas fa-plus-square"> Add Policy</i></button>
   )
 }
 
@@ -77,8 +78,8 @@ const CloseRegistryButton = ({hidePolicyRegistry}) => {
 }
 
 
-const PolicyRegistryItem = ({value, addPolicyToChain}) => {
-  const addToChain = () => addPolicyToChain(value)
+const PolicyRegistryItem = ({value, addPolicy}) => {
+  const addToChain = () => addPolicy(value)
   return (
     <li className="list-group-item">
       <div className="">
@@ -92,13 +93,13 @@ const PolicyRegistryItem = ({value, addPolicyToChain}) => {
 }
 
 
-const PolicyRegistryList = ({items, visible, addPolicyToChain, hidePolicyRegistry}) => {
+const PolicyRegistryList = ({items, visible, addPolicy, hidePolicyRegistry}) => {
   return (
     <div className={(visible ? '' : 'hidden')}>
       <CloseRegistryButton hidePolicyRegistry={hidePolicyRegistry} />
       <ul>
         {items.map((policy, index) => (
-          <PolicyRegistryItem key={`item-${index}`} index={index} value={policy} addPolicyToChain={addPolicyToChain} />
+          <PolicyRegistryItem key={`item-${index}`} index={index} value={policy} addPolicy={addPolicy} />
         ))}
       </ul>
     </div>
@@ -112,9 +113,10 @@ const PolicyList = ({registry, chain, policyConfig, boundActionCreators}) => {
     return (
       <div>
         <PolicyConfig visible={policyConfig.visible} policy={policyConfig.policy} actions={boundActionCreators} />
-        <AddPolicyButton showPolicyRegistry={boundActionCreators.showPolicyRegistry} />
+        <AddPolicyButton openPolicyRegistry={boundActionCreators.openPolicyRegistry} />
         <SortableList
           items={chain.policies}
+          visible={chain.visible}
           onSortEnd={onSortEnd}
           useDragHandle={true}
           removePolicyFromChain={boundActionCreators.removePolicyFromChain}
@@ -123,7 +125,7 @@ const PolicyList = ({registry, chain, policyConfig, boundActionCreators}) => {
         <PolicyRegistryList
           items={registry.policies}
           visible={registry.visible}
-          addPolicyToChain={boundActionCreators.addPolicyToChain}
+          addPolicy={boundActionCreators.addPolicy}
           hidePolicyRegistry={boundActionCreators.hidePolicyRegistry}
         />
       </div>
