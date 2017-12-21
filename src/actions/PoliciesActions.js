@@ -84,6 +84,14 @@ export function openPolicyRegistry () {
   }
 }
 
+// close policy registry
+export function closePolicyRegistry () {
+  return function (dispatch) {
+    dispatch(hidePolicyRegistry())
+    dispatch(showPolicyChain())
+  }
+}
+
 // hide policy registry
 export function hidePolicyRegistry () {
   return {type: 'HIDE_POLICY_REGISTRY'}

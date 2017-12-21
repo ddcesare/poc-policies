@@ -70,9 +70,9 @@ const AddPolicyButton = ({openPolicyRegistry}) => {
   )
 }
 
-const CloseRegistryButton = ({hidePolicyRegistry}) => {
+const CloseRegistryButton = ({closePolicyRegistry}) => {
   return (
-    <button onClick={hidePolicyRegistry}><i className="fas fa-times-circle"> Close</i></button>
+    <button onClick={closePolicyRegistry}><i className="fas fa-times-circle"> Close</i></button>
   )
 }
 
@@ -92,10 +92,10 @@ const PolicyRegistryItem = ({value, addPolicy}) => {
 }
 
 
-const PolicyRegistryList = ({items, visible, addPolicy, hidePolicyRegistry}) => {
+const PolicyRegistryList = ({items, visible, addPolicy, closePolicyRegistry}) => {
   return (
     <div className={(visible ? '' : 'hidden')}>
-      <CloseRegistryButton hidePolicyRegistry={hidePolicyRegistry} />
+      <CloseRegistryButton closePolicyRegistry={closePolicyRegistry} />
       <ul>
         {items.map((policy, index) => (
           <PolicyRegistryItem key={`item-${index}`} index={index} value={policy} addPolicy={addPolicy} />
@@ -125,7 +125,7 @@ const PolicyList = ({registry, chain, policyConfig, boundActionCreators}) => {
           items={registry.policies}
           visible={registry.visible}
           addPolicy={boundActionCreators.addPolicy}
-          hidePolicyRegistry={boundActionCreators.hidePolicyRegistry}
+          closePolicyRegistry={boundActionCreators.closePolicyRegistry}
         />
       </div>
 
