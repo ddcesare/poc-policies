@@ -2,4 +2,4 @@
 
 * `git clone https://github.com/ddcesare/poc-policies.git`
 * `npm install`
-* `npm run`
+* `npm start`
