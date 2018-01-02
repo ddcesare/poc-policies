@@ -44,7 +44,7 @@ const SortableItem = SortableElement(({value, removePolicyFromChain, editPolicyC
 
 const SortableList = SortableContainer(({items, visible, removePolicyFromChain, editPolicyConfig}) => {
   return (
-    <ul className={(visible ? 'list-group' : 'hidden list-group')}>
+    <ol className={(visible ? 'list-group' : 'hidden list-group')}>
       {items.map((policy, index) => (
         <SortableItem
           key={`item-${index}`}
@@ -54,7 +54,7 @@ const SortableList = SortableContainer(({items, visible, removePolicyFromChain, 
           editPolicyConfig={editPolicyConfig}
         />
       ))}
-    </ul>
+    </ol>
   )
 })
 
