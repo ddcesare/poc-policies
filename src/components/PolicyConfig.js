@@ -16,16 +16,24 @@ function PoliciesForm({visible, policy, submitForm, removePolicyFromChain}) {
   const remove = () => removePolicyFromChain(policy)
 
   return (
-    <div className={"container-fluid "+ hidden}>
-      <div className="col-sm-5">
-        <Form schema={policy.schema}
-              formData={policy.data}
-              onChange={log("changed")}
-              onSubmit={onSubmit(policy)}
-              onError={log("errors")}/>
-      </div>
-    </div>
+    <section className={"PolicyConfiguration "+ hidden}>
+      <header className="PolicyConfiguration-header">
+        <h2>{policy.name}</h2>
+        <div className="PolicyConfiguration-cancel"><i className="fas fa-caret-square-left"></i> Cancel</div>
+        <p className="PolicyConfiguration-summary">
+          <span className="Policy-version">{policy.version}</span>
+          {' - '}
+          <span className="Policy-description">{policy.description}</span>
+        </p>
+      </header>
+
+      <Form className="PolicyConfiguration-form" schema={policy.schema}
+            formData={policy.data}
+            onChange={log("changed")}
+            onSubmit={onSubmit(policy)}
+            onError={log("errors")}/>
       <button className="PolicyConfiguration-remove" onClick={remove}><i className="fas fa-times"></i> remove</button>
+    </section>
   )
 }
 
