@@ -9,7 +9,7 @@ export const initialState = {
     visible: true,
     loading: false,
     policies: [],
-    error: {},
+    error: {}
   },
   policyConfig: {
     visible: false,
