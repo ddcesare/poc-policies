@@ -4,7 +4,7 @@ import '../styles/bootstrap/_bootstrap.scss' // react-jsonschema-form
 
 const log = (type) => console.log.bind(console, type);
 
-function PoliciesForm({visible, policy, submitForm}) {
+function PoliciesForm({visible, policy, submitForm, removePolicyFromChain}) {
   const onSubmit = (policy) => {
     return ({formData, schema}) => {
       submitForm({...policy, ...{schema: schema, data: formData}})
@@ -13,6 +13,7 @@ function PoliciesForm({visible, policy, submitForm}) {
   }
 
   const hidden = visible ? '' : 'hidden'
+  const remove = () => removePolicyFromChain(policy)
 
   return (
     <div className={"container-fluid "+ hidden}>
@@ -28,7 +29,7 @@ function PoliciesForm({visible, policy, submitForm}) {
 }
 
 const PolicyConfig = ({visible, policy, actions}) => {
-  return <PoliciesForm visible={visible} policy={policy} submitForm={actions.submitPolicyConfig} />
+  return <PoliciesForm visible={visible} policy={policy} submitForm={actions.submitPolicyConfig} removePolicyFromChain={actions.removePolicyFromChain}/>
 }
 
 export default PolicyConfig

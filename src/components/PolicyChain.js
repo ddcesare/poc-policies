@@ -26,8 +26,7 @@ const mapDispatchToProps = dispatch => {
 
 const DragHandle = SortableHandle(() => <span><i className="fas fa-bars"></i></span>);
 
-const SortableItem = SortableElement(({value, removePolicyFromChain, editPolicyConfig}) => {
-  const remove = () => removePolicyFromChain(value)
+const SortableItem = SortableElement(({value, editPolicyConfig}) => {
   const edit = () => editPolicyConfig(value)
   return (
     <li className="list-group-item">
@@ -42,7 +41,7 @@ const SortableItem = SortableElement(({value, removePolicyFromChain, editPolicyC
   )
 })
 
-const SortableList = SortableContainer(({items, visible, removePolicyFromChain, editPolicyConfig}) => {
+const SortableList = SortableContainer(({items, visible, editPolicyConfig}) => {
   return (
     <ol className={(visible ? 'list-group' : 'hidden list-group')}>
       {items.map((policy, index) => (
@@ -50,7 +49,6 @@ const SortableList = SortableContainer(({items, visible, removePolicyFromChain, 
           key={`item-${index}`}
           index={index}
           value={policy}
-          removePolicyFromChain={removePolicyFromChain}
           editPolicyConfig={editPolicyConfig}
         />
       ))}
@@ -118,7 +116,6 @@ const PolicyList = ({registry, chain, policyConfig, boundActionCreators}) => {
           visible={chain.visible}
           onSortEnd={onSortEnd}
           useDragHandle={true}
-          removePolicyFromChain={boundActionCreators.removePolicyFromChain}
           editPolicyConfig={boundActionCreators.editPolicyConfig}
         />
         <PolicyRegistryList

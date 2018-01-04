@@ -78,7 +78,6 @@ const ChainReducer = createReducer(initialState.chain, {
   'SHOW_POLICY_CHAIN' : toggleVisibility(true),
   'HIDE_POLICY_CHAIN' : toggleVisibility(false),
   'ADD_POLICY_TO_CHAIN' : addPolicyToChain,
-  'REMOVE_POLICY_FROM_CHAIN' : removePolicyFromChain,
   'SORT_POLICY_CHAIN' : updatePolicies,
   'LOADING_POLICIES_START_CHAIN' : toggleLoading(true),
   'LOADING_POLICIES_STOP_CHAIN' : toggleLoading(false),
@@ -100,7 +99,8 @@ const PolicyConfigReducer = createReducer(initialState.policyConfig, {
   'SHOW_POLICY_CONFIG' : toggleVisibility(true),
   'HIDE_POLICY_CONFIG' : toggleVisibility(false),
   'SET_POLICY_CONFIG' : setPolicyConfig,
-  'SAVE_POLICY_CONFIG' : savePolicyConfig
+  'SAVE_POLICY_CONFIG' : savePolicyConfig,
+  'REMOVE_POLICY_FROM_CHAIN' : removePolicyFromChain
 })
 
 const rootReducer = combineReducers({
