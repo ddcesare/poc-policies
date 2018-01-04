@@ -25,6 +25,7 @@ function PoliciesForm({visible, policy, submitForm, removePolicyFromChain}) {
               onError={log("errors")}/>
       </div>
     </div>
+      <button className="PolicyConfiguration-remove" onClick={remove}><i className="fas fa-times"></i> remove</button>
   )
 }
 
