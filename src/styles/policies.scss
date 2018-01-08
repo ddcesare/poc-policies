@@ -82,16 +82,52 @@ $subtleColor: #ddd;
   }
 
   .btn-info {
-    background-color: $PolicyConfiguration-goColor;
-    border-color: $PolicyConfiguration-goColor;
+    background-color: $PolicyConfiguration-doColor;
+    border-color: $PolicyConfiguration-doColor;
+    width: 33.33%;
+    float: right;
+    padding-left: 6px;
+    padding-right: 6px;
+  }
+
+  .btn-group > button.btn-danger:first-child {
+    flex: 0.23 1 0% !important;
+  }
+
+  .array-item {
+    clear: both;
+    float: left;
+    border-bottom: 1px dashed #ddd;
+    display: block;
+    width: 100%;
+    margin-bottom: 2rem;
+  }
+
+  &-form {
+
+    &> .form-group {
+      padding-bottom: 2rem;
+      border-bottom: 1px dashed #ddd;
+    }
+  }
+
+  .btn-group {
+    justify-content: flex-end !important;
   }
 
   button[type=submit] {
-    float: right;
+    background-color: $PolicyConfiguration-goColor;
+    border-color: $PolicyConfiguration-goColor;
+    margin-bottom: 2rem;
+  }
+
+  .error-detail {
+    list-style-type: none !important;
+    padding-left: 0;
   }
 
   legend {
-    color: $PolicyConfiguration-subtleColor;
+    //color: $PolicyConfiguration-subtleColor;
     font-variant: small-caps;
     font-size: 2rem;
     font-weight: bold;
