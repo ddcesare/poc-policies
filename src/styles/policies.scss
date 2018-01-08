@@ -57,8 +57,6 @@ $subtleColor: #ddd;
   right: 0;
   bottom: 0;
   background-color: white;
-  //display: flex;
-  //flex-flow: column nowrap;
 
   &-header {
     display: flex;
@@ -77,13 +75,19 @@ $subtleColor: #ddd;
     width: 100%;
   }
 
-  &-form {
-
+  &-remove {
+    background-color: white;
+    color: $PolicyConfiguration-dontColor;
+    border-color: $PolicyConfiguration-dontColor;
   }
 
   .btn-info {
     background-color: $PolicyConfiguration-goColor;
     border-color: $PolicyConfiguration-goColor;
+  }
+
+  button[type=submit] {
+    float: right;
   }
 
   legend {
@@ -143,10 +147,6 @@ $subtleColor: #ddd;
     cursor: move;
     color: $Policy-doColor;
     opacity: 0.3;
-    //margin-left: -2.2rem;
-    //margin-right: 1rem;
-    //display: none;
-    //padding-right: 0.5rem;
 
     &:hover {
       opacity: 1;
@@ -209,8 +209,6 @@ $subtleColor: #ddd;
     display: none;
   }
 }
-
-
 
 .u-link {
   cursor: pointer;

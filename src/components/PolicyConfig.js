@@ -32,7 +32,7 @@ function PoliciesForm({visible, policy, submitForm, removePolicyFromChain}) {
             onChange={log("changed")}
             onSubmit={onSubmit(policy)}
             onError={log("errors")}/>
-      <button className="PolicyConfiguration-remove" onClick={remove}><i className="fas fa-times"></i> remove</button>
+      <button className="PolicyConfiguration-remove btn btn-danger btn-sm" onClick={remove}><i className="fas fa-trash"></i> Remove</button>
     </section>
   )
 }
