@@ -78,13 +78,13 @@ const ChainReducer = createReducer(initialState.chain, {
   'SHOW_POLICY_CHAIN' : toggleVisibility(true),
   'HIDE_POLICY_CHAIN' : toggleVisibility(false),
   'ADD_POLICY_TO_CHAIN' : addPolicyToChain,
-  'REMOVE_POLICY_FROM_CHAIN' : removePolicyFromChain,
   'SORT_POLICY_CHAIN' : updatePolicies,
   'LOADING_POLICIES_START_CHAIN' : toggleLoading(true),
   'LOADING_POLICIES_STOP_CHAIN' : toggleLoading(false),
   'LOAD_POLICIES_SUCCESS_CHAIN' : updatePolicies,
   'LOAD_POLICIES_ERROR_CHAIN' : updateError,
-  'UPDATE_POLICY_IN_CHAIN' : updatePolicyInChain
+  'UPDATE_POLICY_IN_CHAIN' : updatePolicyInChain,
+  'REMOVE_POLICY_FROM_CHAIN' : removePolicyFromChain
 })
 
 const RegistryReducer = createReducer(initialState.registry, {

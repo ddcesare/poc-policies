@@ -59,13 +59,13 @@ const schemaHeaders = {
 
 
 const chain = [
-    {id: 1, policyId: 1, enabled: true, name: 'CORS', version: '1.0.0', schema: schemaCors, data: {}}
+    {id: 1, policyId: 1, enabled: true, name: 'CORS', description: 'Allows setting custom CORS headers', version: '1.0.0', schema: schemaCors, data: {}}
 ]
 
 const registry = [
-  {id: 1, name: 'CORS policy configuration', version: '1.0.0', schema: schemaCors},
-  {id: 2, name: 'Echo policy configuration', version: '1.0.0', schema: schemaEcho},
-  {id: 3, name: 'Headers policy configuration', version: '1.0.0', schema: schemaHeaders}
+  {id: 1, name: 'CORS policy configuration', description: 'Allows setting custom CORS headers', version: '1.0.0', schema: schemaCors},
+  {id: 2, name: 'Echo policy configuration', description: 'Allows setting custom CORS headers', version: '1.0.0', schema: schemaEcho},
+  {id: 3, name: 'Headers policy configuration', description: 'Allows setting custom CORS headers', version: '1.0.0', schema: schemaHeaders}
 ]
 
 
