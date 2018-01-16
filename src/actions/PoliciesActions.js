@@ -98,9 +98,17 @@ export function hidePolicyRegistry () {
 }
 
 // remove policy from chain
-export function removePolicyFromChain (policy) {
+export function removePolicy (policy) {
   return {type: 'REMOVE_POLICY_FROM_CHAIN', policy}
 }
+
+export function removePolicyFromChain (policy) {
+  return function(dispatch) {
+    dispatch(removePolicy(policy))
+    dispatch(hidePolicyConfig())
+  }
+}
+
 // toggle policy (enable/disable)
 export function togglePolicyState (policy) {
   return {type: 'TOGGLE_POLICY_STATE', policy}
@@ -157,6 +165,14 @@ export function submitPolicyConfig (policy) {
     dispatch(savePolicyConfig(policy))
     dispatch(updatePolicyInChain(policy))
     dispatch(hidePolicyConfig())
+  }
+}
+
+// close policy config
+export function closePolicyConfig () {
+  return function (dispatch) {
+    dispatch(hidePolicyConfig())
+    dispatch(showPolicyChain())
   }
 }
 

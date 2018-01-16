@@ -4,22 +4,22 @@ import '../styles/bootstrap/_bootstrap.scss' // react-jsonschema-form
 
 const log = (type) => console.log.bind(console, type);
 
-function PoliciesForm({visible, policy, submitForm, removePolicyFromChain}) {
+function PoliciesForm({visible, policy, submitForm, removePolicyFromChain, closePolicyConfig}) {
   const onSubmit = (policy) => {
     return ({formData, schema}) => {
       submitForm({...policy, ...{schema: schema, data: formData}})
     }
 
   }
-
   const hidden = visible ? '' : 'hidden'
   const remove = () => removePolicyFromChain(policy)
+  const cancel = () => closePolicyConfig()
 
   return (
     <section className={"PolicyConfiguration "+ hidden}>
       <header className="PolicyConfiguration-header">
         <h2>{policy.name}</h2>
-        <div className="PolicyConfiguration-cancel"><i className="fas fa-caret-square-left"></i> Cancel</div>
+        <a onClick={cancel} className="PolicyConfiguration-cancel"><i className="fas fa-caret-square-left"></i> Cancel</a>
         <p className="PolicyConfiguration-summary">
           <span className="Policy-version">{policy.version}</span>
           {' - '}
@@ -38,7 +38,13 @@ function PoliciesForm({visible, policy, submitForm, removePolicyFromChain}) {
 }
 
 const PolicyConfig = ({visible, policy, actions}) => {
-  return <PoliciesForm visible={visible} policy={policy} submitForm={actions.submitPolicyConfig} removePolicyFromChain={actions.removePolicyFromChain}/>
+  return <PoliciesForm
+    visible={visible}
+    policy={policy}
+    submitForm={actions.submitPolicyConfig}
+    removePolicyFromChain={actions.removePolicyFromChain}
+    closePolicyConfig={actions.closePolicyConfig}
+  />
 }
 
 export default PolicyConfig
